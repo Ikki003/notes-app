@@ -1,1 +1,74 @@
-
+[
+  {
+    "title": "Correos Laravel 2",
+    "categories": [
+      "laravel",
+      "correos",
+      "email"
+    ],
+    "body": "<h2>App\\Livewire\\ContactForm</h2>\n\n<code>\nuse Illuminate\\Support\\Facades\\Mail;\n\nMail::send(new Contact([\n  'nombre' => $this->nombre,\n  'apellido' => $this->apellido,\n  'movil' => $this->movil,\n  'email' => $this->email,\n  'asunto' => $this->asunto,\n  'mensaje' => $this->mensaje,\n]));\n</code>\n\n<h2>App\\Mail\\Contact</h2>\n\n<code>\nnamespace App\\Mail;\n\nuse Illuminate\\Bus\\Queueable;\nuse Illuminate\\Mail\\Mailable;\nuse Illuminate\\Queue\\SerializesModels;\n\nclass Contact extends Mailable\n{\n    use Queueable, SerializesModels;\n\n    public $data;\n\n    public function __construct($data)\n    {\n        $this->data = $data;\n    }\n\n    public function build()\n    {\n        return $this->to('info@miempresa.com') \n                    ->subject('Nuevo mensaje de contacto')\n                    ->view('emails.contact')\n                    ->with('data', $this->data);\n    }\n}\n\n</code>",
+    "relations": []
+  },
+  {
+    "title": "Plantillas correo 2",
+    "categories": [
+      "plantillas correo",
+      "gmail",
+      "mail",
+      "laravel"
+    ],
+    "body": "<h2>Resources\\Views\\Emails\\Contact.blade.php</h2>\n\n<code>\n<!DOCTYPE html>\n<html lang=\"es\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Nuevo mensaje de contacto</title>\n</head>\n\n<body style=\"margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;\">\n    <table role=\"presentation\" style=\"width: 100%; background-color: #f4f4f4;\">\n        <tr>\n            <td align=\"center\">\n                <table role=\"presentation\"\n                    style=\"width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; margin: 20px 0;\">\n                    <tr>\n                        <td style=\"padding: 20px; text-align: center; background-color: #191A1D; color: white;\">\n                            <h1 style=\"margin: 0; font-size: 24px;\">Nuevo mensaje de contacto</h1>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td style=\"padding: 20px;\">\n                            <p style=\"font-size: 16px; line-height: 1.5; margin: 0;\">\n                                <strong>Nombre:</strong> {{ $data['nombre'] }}<br>\n                                {{-- <strong>Apellido:</strong> {{ $data['apellido'] }}<br> --}}\n                                <strong>Móvil:</strong> {{ $data['movil'] }}<br>\n                                <strong>Email:</strong> {{ $data['email'] }}<br>\n                                <strong>Asunto:</strong> {{ $data['asunto'] }}<br>\n                                <strong>Mensaje:</strong><br>\n                            <p style=\"margin-top: 10px;\">{{ $data['mensaje'] }}</p>\n                            </p>\n                        </td>\n                    </tr>\n                    <tr>\n                        <td style=\"padding: 20px; text-align: center; background-color: #f1f1f1;\">\n                            <p style=\"margin: 0; font-size: 14px; color: #777;\">\n                                Este correo se ha enviado desde el formulario de contacto en DeuSens.com.\n                            </p>\n                        </td>\n                    </tr>\n                </table>\n            </td>\n        </tr>\n    </table>\n</body>\n\n</html>\n\n</code>",
+    "relations": []
+  },
+  {
+    "title": "Mailhog",
+    "categories": [
+      "mailhog",
+      "correo",
+      ".env",
+      "smtp"
+    ],
+    "body": "<h2>Config .env para MailHog</h2>\n\n<code>\nMAIL_MAILER=smtp\nMAIL_HOST=localhost\nMAIL_PORT=1025\nMAIL_USERNAME=null\nMAIL_PASSWORD=null\nMAIL_ENCRYPTION=null\nMAIL_FROM_ADDRESS=example@example.com\nMAIL_FROM_NAME=\"${APP_NAME}\"\n</code>",
+    "relations": [
+      0
+    ]
+  },
+  {
+    "title": "Crear storage link mediante web.php",
+    "categories": [
+      "php artisan storage link"
+    ],
+    "body": "<h2>Comando para crear un symlink sin tener acceso al server SSH</h2>\n\n<code>\nuse Illuminate\\Support\\Facades\\Artisan;\n \nRoute::get('storage', function() {\n    Artisan::call('storage:link');\n});\n</code>",
+    "relations": []
+  },
+  {
+    "title": "Favicon generator",
+    "categories": [
+      "favicon generator"
+    ],
+    "body": "<h2>Crear favicon con diferentes dimensiones</h2>\n\nhttps://www.favicon-generator.org/",
+    "relations": []
+  },
+  {
+    "title": "Lanzar server php",
+    "categories": [
+      "server php",
+      "terminal"
+    ],
+    "body": "<h2>Comando para lanzar una app de PHP desde la terminal</h2>\n\n<code>\nphp -S IP:PUERTO\n</code>",
+    "relations": []
+  },
+  {
+    "title": "Fetch JsonBin",
+    "categories": [
+      "jsonbin",
+      "fetch js"
+    ],
+    "body": "<h2>Como hacer un fetch del JSON BIN</h2>\n\n<code>\nconst apiKey = \"***\"; \nconst binId = \"***\";\n\nasync function fetchNotesFromJSONBin() {\n    try {\n        const response = await fetch(\n            `https://api.jsonbin.io/v3/b/${binId}/latest`,\n            {\n                headers: {\n                    \"X-Master-Key\": apiKey,\n                },\n            }\n        );\n\n        if (response.ok) {\n            const data = await response.json();\n            notes = data.record; // Actualizamos la lista de notas\n            renderNotes();\n            console.log(\"Notas cargadas desde JSONBin.\");\n        } else {\n            console.error(\n                \"Error al cargar desde JSONBin:\",\n                response.statusText\n            );\n        }\n    } catch (error) {\n        console.error(\"Error de red al cargar desde JSONBin:\", error);\n    }\n}\n\n</code>",
+    "relations": [
+      1,
+      2,
+      3
+    ]
+  }
+]
